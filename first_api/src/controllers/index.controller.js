@@ -14,6 +14,12 @@ const getUsers = async (req,res)=>{
     console.log(response.rows);
 }
 
+const getProducto = async (req,res)=>{
+    const response = await pool.query('SELECT * FROM producto');
+    res.status(200).json(response.rows);
+    console.log(response.rows);
+}
+
 const updatedUser = async(req, res)=>{
     const id = req.params.id;
     const { name, email } = req.body;
@@ -57,5 +63,6 @@ module.exports = {
     createUsers,
     getUsersById,
     deleteUsers,
-    updatedUser
+    updatedUser,
+    getProducto
 }

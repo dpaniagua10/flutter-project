@@ -37,6 +37,27 @@ INSERT INTO tienda (nombre, direccion, zona, ciudad) VALUES
 CREATE TABLE producto(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50),
+    idcategoria SMALLINT,
     precio REAL,
-    detalle(200)
-)
+    detalle VARCHAR(200)
+);
+
+ALTER TABLE producto
+    add constraint FK_producto_idcategoria
+    foreign key (idcategoria)
+    REFERENCES categoria(id);
+
+INSERT INTO producto (name, idcategoria, precio, detalle) VALUES
+('pepsi 3 litros',2,'15.0','desechable jumbo 3 litros'),
+('pepsi 500 ml',2,'5.0','desechable 500 ml');
+
+
+select id, name, precio, detalle from producto
+where idcategoria = (select id from categoria where descripcion='bebida');
+
+
+
+select a.name, a.detalle, a.precio from producto a
+inner join categoria ON a.idcategoria = categoria.id
+WHERE categoria.id = 2;
+
